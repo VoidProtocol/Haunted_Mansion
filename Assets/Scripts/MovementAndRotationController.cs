@@ -4,45 +4,56 @@ public class MovementAndRotationController : MonoBehaviour
 {
     [Header("Setup:")]
     public Rigidbody2D rb;
-    public Camera cam;
+    public Animator animator;
+    //public Camera cam;
 
-    [Space]
     [Header("Values:")]
-    public Vector2 keyboardValues;
-    public Vector2 mousePosition;
-    public Vector2 lookDirection;
+    public Vector2 movementValues;
+    //public Vector2 mousePosition;
+    //public Vector2 lookDirection;
 
-    [Space]
     [Header("Movement Config:")]
-    public float playerSpeed = 1;
+    public float playerSpeed;
 
     void Update()
     {
-        CheckIfPlayerPressingMovementButtons();
-        mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
+        GetMovementValues();
+        SetAnimatorValues();
+        //mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
     }
 
     void FixedUpdate()
     {
         PlayerMovement(playerSpeed);
-        PlayerRotationAndAim();
+        //PlayerRotationAndAim();
     }
 
-    private void CheckIfPlayerPressingMovementButtons()
+    private void GetMovementValues()
     {
-        keyboardValues.x = Input.GetAxisRaw("Horizontal");
-        keyboardValues.y = Input.GetAxisRaw("Vertical");
+        movementValues = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+        if (movementValues.magnitude > 1.0f)
+        {
+            movementValues.Normalize();
+        }
     }
 
     private void PlayerMovement(float playerSpeed)
     {
-        rb.MovePosition(rb.position + keyboardValues * playerSpeed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + movementValues * playerSpeed * Time.fixedDeltaTime);
     }
 
-    private void PlayerRotationAndAim()
+    private void SetAnimatorValues()
     {
-        lookDirection = mousePosition - rb.position;
-        float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg - 90f;
-        rb.rotation = angle;
+        animator.SetFloat("Horizontal", movementValues.x);
+        animator.SetFloat("Vertical", movementValues.y);
+        animator.SetFloat("Magnitude", movementValues.magnitude);
     }
+
+    //private void PlayerRotationAndAim()
+    //{
+    //    lookDirection = mousePosition - rb.position;
+    //    float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg - 90f;
+    //    rb.rotation = angle;
+    //}
 }

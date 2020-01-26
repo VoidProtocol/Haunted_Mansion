@@ -14,7 +14,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Player
   - Bullet
   - Enemy
   - Scenery
@@ -40,4 +40,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Enemy
+    uniqueID: 161601337
+    locked: 0
+  - name: Player
+    uniqueID: 2937096001
+    locked: 0
+  - name: Weapons
+    uniqueID: 2653896385
     locked: 0

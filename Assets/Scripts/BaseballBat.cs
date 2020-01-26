@@ -8,6 +8,9 @@ public class BaseballBat : Weapon
     public Collider2D circleCollider;
     public Collider2D polygonCollider;
     public ContactFilter2D contactFilter;
+    public Animator animator;
+    public Animator animator2;
+
 
     [Space]
     [Header("Weapon Config:")]
@@ -21,6 +24,9 @@ public class BaseballBat : Weapon
         if (Time.time >= _nextTimeToAttack)
         {
             _nextTimeToAttack = Time.time + delayBetweenShooting;
+
+            animator.SetTrigger("attack");
+            animator2.SetTrigger("attack");
 
             List<Collider2D> elementsInCircleCollider = new List<Collider2D>();
             List<Collider2D> elementsInPolygonCollider = new List<Collider2D>();

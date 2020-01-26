@@ -26,7 +26,7 @@ public class Shotgun : Weapon
 
             for (int i = 0; i < numberOfBullets; i++)
             {
-                Vector3 randomShootingVector = Quaternion.AngleAxis(farLeftBulletAngleFromCenter, Vector3.forward) * firePoint.up;
+                Vector3 randomShootingVector = Quaternion.AngleAxis(farLeftBulletAngleFromCenter, Vector3.forward) * firePoint.right;
 
                 GameObject bullet = Instantiate(bulletprefab, firePoint.position, firePoint.rotation);
                 bullet.GetComponent<Rigidbody2D>().AddForce(randomShootingVector * bulletSpeed, ForceMode2D.Impulse);

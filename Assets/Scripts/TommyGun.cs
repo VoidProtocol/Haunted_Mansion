@@ -21,7 +21,7 @@ public class TommyGun : Weapon
             _nextTimeToAttack = Time.time + delayBetweenShooting;
 
             float randomBulletSpreadDegree = Random.Range(-bulletSpreadDegrees, bulletSpreadDegrees);
-            Vector3 randomShootingVector = Quaternion.AngleAxis(randomBulletSpreadDegree, Vector3.forward) * firePoint.up;
+            Vector3 randomShootingVector = Quaternion.AngleAxis(randomBulletSpreadDegree, Vector3.forward) * firePoint.right;
 
             GameObject bullet = Instantiate(bulletprefab, firePoint.position, firePoint.rotation);
             bullet.GetComponent<Rigidbody2D>().AddForce(randomShootingVector * bulletSpeed, ForceMode2D.Impulse);
